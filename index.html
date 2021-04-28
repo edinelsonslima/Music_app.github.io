@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music app</title>
+</head>
+<body>
+    
+    <audio id="audio">
+        Navegador sem suporte para o audio
+    </audio>
+    <progress id="barra_progresso" max="0" value="0"></progress>
+    <div id="nome_musica"></div>
+    <span id="tempo_atual">00:00:00</span> /
+    <span id="tempo_total">00:00:00</span>
+ 
+    <div>
+        <input type="button" value="Play" onclick="play()">
+        <input type="button" value="Pause" onclick="pause()">
+        <input type="button" value="Stop" onclick="stop()">
+        <input type="button" value="-" onclick="diminuir_volume()">
+        <input type="button" value="+" onclick="aumentar_volume()">
+    </div>
+
+    <footer>
+        <p>&copy: Edinelson Lima</p>
+        <script src="js/index.js"></script>
+    </footer>
+</body>
+</html>
