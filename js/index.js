@@ -1,31 +1,87 @@
 const audio = document.querySelector('#audio')
+const source = document.querySelector('#src')
+const playPause = document.querySelector('#playPause')
+const nome_musica = document.querySelector('#nome_musica')
+const tempo_atual = document.querySelector('#tempo_atual')
 
-audio.addEventListener('play', play_evento , false);
+//audio.addEventListener('play', play_evento , false)
 audio.addEventListener('timeupdate', atualizar , false);
-
 audio.addEventListener('canplay', play_evento , false);
-audio.addEventListener('timeupdate', atualizar , false);
-audio.addEventListener('ended', proxima , false);
+audio.addEventListener('ended', skip , false);
 
-let i = 0;
 
-let musicas = [
-        {mp3:'Gustavo_Lima_60_segungos.mp3' , 
-         //ogg:'the_godfather_main_title.ogg' ,
-         titulo:'Gustavo Lima - 60_segungos.mp3'
-        },
-        {mp3:'Gustavo_Lima_Cafe_e_Amor.mp3',
-         //mp3:'game_of_thornes_main_title.ogg',
-         titulo:'Gustavo Lima - Café e Amor'
-        },
-    ];
+var posicaoMusica = 0, imparPar = 0;
 
-function play(){
+var musicas =   [
+    { mp3:'./../music/the_godfather_main_title.mp3',
+      titulo:'60 Segundos',
+    },
+    { mp3:'./../music/game_of_thornes_main_title.mp3',
+      titulo:'Café e Amor',
+    },
+]; 
+
+playPause.addEventListener('click', ()=>{
+    if(nome_musica.innerHTML == ''){
+        nome_musica.innerHTML = musicas[posicaoMusica].titulo
+    }
+    if(imparPar == 0){
+        console.log(`P: ${posicaoMusica}`)
+
+        audio.src = musicas[posicaoMusica].mp3
+
+        posicaoMusica++
+        console.log(`Primeiro Play P: ${posicaoMusica}`)
+    }
+    if(imparPar % 2 == 0){
+        audio.play()
+        playPause.value = 'Pause'
+    }
+    else{
+        audio.pause()
+        playPause.value = 'Play'
+    }
+   
+    imparPar ++
+})
+
+
+function skip(){
+    /*if(tempo_atual.innerHTML !== '00:00'){
+        playPause.value = 'Pause'
+       imparPar++
+    }*/
+    if(audio.canPlayType("audio/mp3") != ''){
+        audio.src = musicas[posicaoMusica].mp3
+    }else{
+        console.log('Não suportado')
+    }
+    
+    nome_musica.innerHTML = musicas[posicaoMusica].titulo;
     audio.play();
+    
+    posicaoMusica++;
+    console.log(`Skip P: ${posicaoMusica}`)
+    if( posicaoMusica >= musicas.length ) posicaoMusica = 0;
 }
 
-function pause(){
-    audio.pause();
+function back(){
+   /* if(nome_musica.innerHTML == ''){
+        playPause.value = 'Pause'
+       imparPar++
+    }*/
+    posicaoMusica--
+    if(posicaoMusica >= 0 && posicaoMusica < musicas.length){
+        audio.src = musicas[posicaoMusica].mp3
+    }
+    else{
+        posicaoMusica = musicas.length-1
+        audio.src = musicas[posicaoMusica].mp3
+    }
+
+    nome_musica.innerHTML = musicas[posicaoMusica].titulo;
+    audio.play()
+
 }
 
 function stop(){
@@ -49,43 +105,30 @@ function mute(){
     }
 }
 
-function play_evento(){
-    document.querySelector('#tempo_atual').innerHTML = secToStr( audio.currentTime) ;
-    document.querySelector('#tempo_total').innerHTML = secToStr( audio.duration );
-
-    document.querySelector('#barra_progresso').max = audio.duration;
-    document.querySelector('#barra_progresso').value = audio.currentTime;
-}
-
 function atualizar(){
-    document.querySelector('#tempo_atual').innerHTML = secToStr( audio.currentTime);
+    tempo_atual.innerHTML = secToStr( audio.currentTime);
     document.querySelector('#barra_progresso').value = audio.currentTime;
 }
 
-function proxima(){
-    if(audio.canPlayType("audio/mp3") != ''){
-        audio.src = musicas[i].mp3;
-    }else{
-        audio.src = musicas[i].ogg;
-    }
-    document.getElementById('nome_musica').innerHTML = musicas[i].titulo;
-    audio.play();
+function play_evento(){
+    document.getElementById('tempo_atual').innerHTML = secToStr( audio.currentTime) ;
+    document.getElementById('tempo_total').innerHTML = secToStr( audio.duration );
 
-    i++;
-    if( i >= musicas.length ) i = 0;
+    document.getElementById('barra_progresso').max = audio.duration;
+    document.getElementById('barra_progresso').value = audio.currentTime;
 }
+
 
 function secToStr( sec_num ) {
     sec_num = Math.floor( sec_num );
-    var horas   = Math.floor(sec_num / 3600);
-    var minutos = Math.floor((sec_num - (horas * 3600)) / 60);
-    var segundos = sec_num - (horas * 3600) - (minutos * 60);
+    let minutos = Math.floor((sec_num - (Math.floor(sec_num / 3600) * 3600)) / 60);
+    let segundos = sec_num - (Math.floor(sec_num / 3600) * 3600) - (minutos * 60);
      
-    if (horas   < 10)  horas    = "0"+horas;
+
     if (minutos < 10)  minutos  = "0"+minutos;
     if (segundos < 10) segundos = "0"+segundos;
      
-    var tempo    = horas+':'+minutos+':'+segundos;
+    let tempo = minutos+':'+segundos;
 
     return tempo     
 }

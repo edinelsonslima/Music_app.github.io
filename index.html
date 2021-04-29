@@ -8,20 +8,23 @@
 </head>
 <body>
     
-    <audio id="audio">
+    <audio id="audio" src="">
+        
         Navegador sem suporte para o audio
     </audio>
     <progress id="barra_progresso" max="0" value="0"></progress>
     <div id="nome_musica"></div>
-    <span id="tempo_atual">00:00:00</span> /
-    <span id="tempo_total">00:00:00</span>
+    <span id="tempo_atual">00:00</span> /
+    <span id="tempo_total">00:00</span>
  
     <div>
-        <input type="button" value="Play" onclick="play()">
-        <input type="button" value="Pause" onclick="pause()">
+        <input type="button" value="skip" onclick="skip()">
+        <input type="button" value="Play" id="playPause">
+        <input type="button" value="back" onclick="back()">
         <input type="button" value="Stop" onclick="stop()">
         <input type="button" value="-" onclick="diminuir_volume()">
         <input type="button" value="+" onclick="aumentar_volume()">
+        <input type="button" value="Mute" onclick="mute()">
     </div>
 
     <footer>
