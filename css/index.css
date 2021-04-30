@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: rgb(251,194,63);
+    background:radial-gradient(circle, rgb(88, 75, 75) 0%, rgba(227,116,4,1) 100% );
+    color: white;
+}
+
+footer{
+    text-align: center;
+    width: 100%;
+    bottom: 8%;
+    position: absolute;
+}
+
+p{
+    font-size: 18pt;
+}
+
+.volume{
+    display: none;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
+}
+
+.box{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:white;
+    border: 2px solid black;
+    width: 40%;
+    height: 70%;
+    color: black;
+}
+
+.controls{
+    border: 2px solid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: absolute;
+    text-align: center;
+    width: 95%;
+    bottom: 7%;
+}
+
+.music{
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: absolute;
+    text-align: center;
+    width: 95%;
+    height: 65%;
+    margin-bottom: 20%;
+}
+
+.button{
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.invisivel{
+    display: none;
+}
+
+.controleVolume{
+    margin-top: 15px;
+}
+
+#playPause{
+    margin: 1% 6% 1% 6%;
+    padding: 20px 25px;
+    border-radius: 80px 80px;
+}
+
+#skipPlayBack{
+    width: 87%;
+}
+
+#volume{
+    width: 42%;
+    border: 1px solid;
+}
+
+#volumeBarra{
+    margin-top: 13px;
+    transform: rotate(180deg);
+}
+
+#muteDiv{
+    width: 87%;
+    text-align: right;
+}
+
+#mute{
+    margin-right: 40%;
+}
+
+
+#barra_progresso{
+    width: 95%;
+}
+
+#capa{
+    margin: 1%;
+    border: 1px solid;
+    height: 78%;
+    width: 97%;
+}
