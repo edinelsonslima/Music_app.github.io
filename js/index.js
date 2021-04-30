@@ -3,7 +3,8 @@ const source = document.querySelector('#src')
 const playPause = document.querySelector('#playPause')
 const nome_musica = document.querySelector('#nome_musica')
 const tempo_atual = document.querySelector('#tempo_atual')
-
+const skip = document.querySelector('#skip')
+const back = document.querySelector('#back')
 //audio.addEventListener('play', play_evento , false)
 audio.addEventListener('timeupdate', atualizar , false);
 audio.addEventListener('canplay', play_evento , false);
@@ -13,11 +14,14 @@ audio.addEventListener('ended', skip , false);
 var posicaoMusica = 0, imparPar = 0;
 
 var musicas =   [
-    { mp3:'./../music/the_godfather_main_title.mp3',
+    { mp3:'./../music/60_segundos.mp3',
       titulo:'60 Segundos',
     },
-    { mp3:'./../music/game_of_thornes_main_title.mp3',
+    { mp3:'./../music/Café_e_Amor.mp3',
       titulo:'Café e Amor',
+    },
+    { mp3:'./../music/CRACUDO.mp3',
+      titulo:'Cracudo',
     },
 ]; 
 
@@ -26,12 +30,7 @@ playPause.addEventListener('click', ()=>{
         nome_musica.innerHTML = musicas[posicaoMusica].titulo
     }
     if(imparPar == 0){
-        console.log(`P: ${posicaoMusica}`)
-
-        audio.src = musicas[posicaoMusica].mp3
-
-        posicaoMusica++
-        console.log(`Primeiro Play P: ${posicaoMusica}`)
+         audio.src = musicas[0].mp3
     }
     if(imparPar % 2 == 0){
         audio.play()
@@ -41,50 +40,67 @@ playPause.addEventListener('click', ()=>{
         audio.pause()
         playPause.value = 'Play'
     }
-   
+
     imparPar ++
 })
 
-
-function skip(){
-    /*if(tempo_atual.innerHTML !== '00:00'){
-        playPause.value = 'Pause'
-       imparPar++
-    }*/
-    if(audio.canPlayType("audio/mp3") != ''){
-        audio.src = musicas[posicaoMusica].mp3
-    }else{
-        console.log('Não suportado')
-    }
-    
-    nome_musica.innerHTML = musicas[posicaoMusica].titulo;
-    audio.play();
-    
-    posicaoMusica++;
-    console.log(`Skip P: ${posicaoMusica}`)
-    if( posicaoMusica >= musicas.length ) posicaoMusica = 0;
-}
-
-function back(){
-   /* if(nome_musica.innerHTML == ''){
-        playPause.value = 'Pause'
-       imparPar++
-    }*/
-    posicaoMusica--
-    if(posicaoMusica >= 0 && posicaoMusica < musicas.length){
-        audio.src = musicas[posicaoMusica].mp3
+skip.addEventListener('click', ()=>{
+    if(nome_musica.innerHTML !== ''){
+        posicaoMusica++
+        if(audio.canPlayType("audio/mp3") != ''){
+            if(posicaoMusica >= 0 && posicaoMusica < musicas.length){
+                audio.src = musicas[posicaoMusica].mp3
+            }
+            else{
+                posicaoMusica = 0
+                audio.src = musicas[posicaoMusica].mp3
+            }
+        }
+        else{
+            console.log('Não suportado, adicionar em outro formato')
+        }
     }
     else{
-        posicaoMusica = musicas.length-1
-        audio.src = musicas[posicaoMusica].mp3
+        audio.src = musicas[0].mp3
+        playPause.value = 'Pause'
+        imparPar++
     }
 
     nome_musica.innerHTML = musicas[posicaoMusica].titulo;
-    audio.play()
+    audio.play();
+})
 
-}
+back.addEventListener('click', ()=>{
+    if(nome_musica.innerHTML !== ''){
+        posicaoMusica--
+        if(audio.canPlayType("audio/mp3") != ''){
+            if(posicaoMusica >= 0 && posicaoMusica < musicas.length){
+                audio.src = musicas[posicaoMusica].mp3
+            }
+            else{
+                posicaoMusica = musicas.length-1
+                audio.src = musicas[posicaoMusica].mp3
+            }
+            nome_musica.innerHTML = musicas[posicaoMusica].titulo;
+        }
+        else{
+            console.log('Não suportado, adicionar em outro formato')
+        }
+    }
+    else{
+        nome_musica.innerHTML = musicas[musicas.length-1].titulo;
+        audio.src = musicas[musicas.length-1].mp3
+        playPause.value = 'Pause'
+        imparPar++
+    }
+    audio.play()
+})
 
 function stop(){
+    if(playPause.value !== 'Play'){
+        playPause.value = 'Play'
+        imparPar++
+    }
     audio.pause();
     audio.currentTime = 0;
 }
@@ -117,7 +133,6 @@ function play_evento(){
     document.getElementById('barra_progresso').max = audio.duration;
     document.getElementById('barra_progresso').value = audio.currentTime;
 }
-
 
 function secToStr( sec_num ) {
     sec_num = Math.floor( sec_num );
