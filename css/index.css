@@ -12,24 +12,22 @@ body{
 footer{
     text-align: center;
     width: 100%;
-    bottom: 8%;
+    bottom: 5%;
     position: absolute;
 }
 
 p{
-    font-size: 10pt;
+    font-size: 15pt;
 }
 
-span{
-    font-size: 9px;
-}
 .container{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
+    display:flex;
     flex-direction: row;
     justify-content: center;
     align-items:center;
+    height: 100vh;
+    width: 100vw;  
+  
 }
 
 .box{
@@ -40,8 +38,8 @@ span{
     background-color:rgb(136, 136, 136);
     border: 2px solid black;
     border-radius: 2%;
-    width: 40%;
-    height: 70%;
+    width: 300px;
+    height: 500px;
     color: black;
 }
 
@@ -158,5 +156,6 @@ span{
 }
 
 #nome_musica{
-    font-family:monospace
+    font-family:monospace;
+    font-size: 10pt;
 }
