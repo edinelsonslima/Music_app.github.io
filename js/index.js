@@ -11,19 +11,14 @@ const skipPlayBack = document.querySelector('#skipPlayBack')
 const muteButton = document.querySelector('#muteDiv') 
 const controleVolumeDiv = document.querySelector('#controleVolumeDiv')
 const img = document.querySelector('#capa')
+const muteIcon = document.querySelector('#muteIcon')
+const playPauseIcon = document.querySelector('#playPauseIcon')
 
+let posicaoMusica = 0, 
+    imparPar = 0, 
+    botaDeControle = 0;
 
-audio.addEventListener('timeupdate', atualizar , false);
-audio.addEventListener('canplay', play_evento , false);
-audio.addEventListener('ended', skip , false);
-
-muteButton.classList.add('invisivel')
-controleVolumeDiv.classList.add('controleVolume')
-
-
-let posicaoMusica = 0, imparPar = 0, botaDeControle = 0;
-
-var musicas = [
+let musicas = [
     { mp3:'./../music/60_segundos.mp3',
       titulo:'60 Segundos',
       capa: './../img/60_segundos.jpg'
@@ -38,9 +33,15 @@ var musicas = [
     },
 ]; 
 
+audio.addEventListener('timeupdate', atualizar , false);
+audio.addEventListener('canplay', play_evento , false);
+
+muteButton.classList.add('invisivel')
+controleVolumeDiv.classList.add('controleVolume')
+
 playPause.addEventListener('click', ()=>{
-    if(nome_musica.innerHTML == ''){
-        nome_musica.innerHTML = musicas[posicaoMusica].titulo
+    if(nome_musica.value == ''){
+        nome_musica.value = musicas[posicaoMusica].titulo
     }
     if(imparPar == 0){
          audio.src = musicas[0].mp3
@@ -49,18 +50,18 @@ playPause.addEventListener('click', ()=>{
     }
     if(imparPar % 2 == 0){
         audio.play()
-        playPause.value = '‖'
+        playPauseIcon.src = './../icones/pausa.png'
     }
     else{
         audio.pause()
-        playPause.value = '▸'
+        playPauseIcon.src = './../icones/botao-play.png'
     }
 
     imparPar ++
 })
 
 skip.addEventListener('click', ()=>{
-    if(nome_musica.innerHTML !== ''){
+    if(nome_musica.value !== ''){
         posicaoMusica++
         if(audio.canPlayType("audio/mp3") != ''){
             if(posicaoMusica >= 0 && posicaoMusica < musicas.length){
@@ -79,18 +80,20 @@ skip.addEventListener('click', ()=>{
     }
     else{
         audio.src = musicas[0].mp3
-        playPause.value = '‖'
-        imparPar++
         img.src = musicas[0].capa
     }
 
-    nome_musica.innerHTML = musicas[posicaoMusica].titulo;
+    if(imparPar % 2 == 0){
+        playPauseIcon.src = './../icones/pausa.png'
+        imparPar++
+    }
+    nome_musica.value = musicas[posicaoMusica].titulo;
     
     audio.play();
 })
 
 back.addEventListener('click', ()=>{
-    if(nome_musica.innerHTML !== ''){
+    if(nome_musica.value !== ''){
         posicaoMusica--
         if(audio.canPlayType("audio/mp3") != ''){
             if(posicaoMusica >= 0 && posicaoMusica < musicas.length){
@@ -102,18 +105,20 @@ back.addEventListener('click', ()=>{
                 audio.src = musicas[posicaoMusica].mp3
                 img.src = musicas[posicaoMusica].capa
             }
-            nome_musica.innerHTML = musicas[posicaoMusica].titulo;
+            nome_musica.value = musicas[posicaoMusica].titulo;
         }
         else{
             console.log('Não suportado, adicionar em outro formato')
         }
     }
     else{
-        nome_musica.innerHTML = musicas[musicas.length-1].titulo;
-        
+        nome_musica.value = musicas[musicas.length-1].titulo;
         audio.src = musicas[musicas.length-1].mp3
         img.src = musicas[musicas.length-1].capa
-        playPause.value = '‖'
+    }
+
+    if(imparPar % 2 == 0){
+        playPauseIcon.src = './../icones/pausa.png'
         imparPar++
     }
     audio.play()
@@ -123,13 +128,11 @@ controleVolume.addEventListener('click',()=>{
     if(botaDeControle%2 == 0){
         skipPlayBack.classList.add('invisivel')
         muteButton.classList.remove('invisivel')
-        controleVolumeDiv.classList.remove('controleVolume')
         
     }
     else{
         skipPlayBack.classList.remove('invisivel')
         muteButton.classList.add('invisivel')
-        controleVolumeDiv.classList.add('controleVolume')
         
     }
     botaDeControle++
@@ -140,6 +143,7 @@ function volume(){
 }
      
 function mute(){
+    
     if( audio.muted ){
         audio.muted = false;
     }else{

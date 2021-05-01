@@ -4,9 +4,9 @@
 }
 
 body{
-    background: rgb(251,194,63);
-    background:radial-gradient(circle, rgb(88, 75, 75) 0%, rgba(227,116,4,1) 100% );
-    color: white;
+    background: rgb(14, 30, 73);
+    color: rgb(255, 239, 239);
+    font-family:monospace
 }
 
 footer{
@@ -17,20 +17,19 @@ footer{
 }
 
 p{
-    font-size: 18pt;
+    font-size: 10pt;
 }
 
-.volume{
-    display: none;
+span{
+    font-size: 9px;
 }
-
 .container{
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center
+    align-items:center;
 }
 
 .box{
@@ -38,9 +37,9 @@ p{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color:white;
+    background-color:rgb(136, 136, 136);
     border: 2px solid black;
+    border-radius: 2%;
     width: 40%;
     height: 70%;
     color: black;
@@ -53,26 +52,28 @@ p{
     flex-wrap: wrap;
     position: absolute;
     text-align: center;
+    align-items: center;
     width: 95%;
+    height: 12%;
     bottom: 7%;
 }
 
 .music{
     border: 2px solid;
+    border-radius: 2%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     position: absolute;
     text-align: center;
     width: 95%;
-    height: 65%;
-    margin-bottom: 20%;
+    height: 75%;
+    margin-top: 5%;
 }
 
 .button{
-    padding: 10px 15px;
-    text-align: center;
-    display: inline-block;
+    background: none;
+    border: none;
     border-radius: 50%;
 }
 
@@ -80,14 +81,21 @@ p{
     display: none;
 }
 
-.controleVolume{
-    margin-top: 15px;
+#controleVolume{
+   
+    margin-right:6px ;
+}
+
+.icon{
+    width:35px;
+}
+
+.icon2{
+    width:25px;
 }
 
 #playPause{
-    margin: 1% 6% 1% 6%;
-    padding: 20px 25px;
-    border-radius: 80px 80px;
+    margin: 3% 7%;
 }
 
 #skipPlayBack{
@@ -100,7 +108,9 @@ p{
 }
 
 #volumeBarra{
-    margin-top: 13px;
+    border: 1px solid;
+    padding: 5px;
+    margin-right: 5%;
     transform: rotate(180deg);
 }
 
@@ -110,17 +120,43 @@ p{
 }
 
 #mute{
-    margin-right: 40%;
+    margin-right: 10%;
 }
 
 
 #barra_progresso{
+    padding: 1px;
     width: 95%;
+    height:10%;
+}
+
+#nome_musica{
+    background: none;
+    text-align: center;
+    border: none;
 }
 
 #capa{
     margin: 1%;
     border: 1px solid;
-    height: 78%;
+    border-radius:2% ;
+    height: 97%;
     width: 97%;
+}
+
+#capaDiv{
+    height: 80%;
+}
+
+#info{
+    width: 100%;
+    height: 18%;
+}
+
+#tempo_atual{
+    margin-right: 65%;
+}
+
+#nome_musica{
+    font-family:monospace
 }
